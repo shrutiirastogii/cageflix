@@ -10,29 +10,42 @@ const Home = () => {
   const [query, setQuery] = useState('');
   const [filtered, setFiltered] = useState([]);
 
-  const list = [
-    {
-      "id": "1",
-      "title": "Face/Off",
-      "year": 1997,
-      "genres": ["Action", "Sci-Fi"],
-      "description": "An FBI agent undergoes surgery to assume the identity of a terrorist.",
-      "actors": ["Nicolas Cage", "John Travolta"],
-      "poster": "https://via.placeholder.com/300x450?text=Face%2FOff"
-    },
-    {
-      "id": "2",
-      "title": "National Treasure",
-      "year": 2004,
-      "genres": ["Action", "Adventure"],
-      "description": "A historian races to find treasure hidden by the Founding Fathers.",
-      "actors": ["Nicolas Cage", "Diane Kruger"],
-      "poster": "https://via.placeholder.com/300x450?text=National+Treasure"
-    },
-  ]
+  // const list = [
+  //   {
+  //     "id": "1",
+  //     "title": "Face/Off",
+  //     "year": 1997,
+  //     "genres": ["Action", "Sci-Fi"],
+  //     "description": "An FBI agent undergoes surgery to assume the identity of a terrorist.",
+  //     "actors": ["Nicolas Cage", "John Travolta"],
+  //     "poster": "https://via.placeholder.com/300x450?text=Face%2FOff"
+  //   },
+  //   {
+  //     "id": "2",
+  //     "title": "National Treasure",
+  //     "year": 2004,
+  //     "genres": ["Action", "Adventure"],
+  //     "description": "A historian races to find treasure hidden by the Founding Fathers.",
+  //     "actors": ["Nicolas Cage", "Diane Kruger"],
+  //     "poster": "https://via.placeholder.com/300x450?text=National+Treasure"
+  //   },
+  // ]
 
   useEffect(() => {
-    setMovies(list)
+      fetch('/api/movies')
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status} – ${res.statusText}`);
+          }
+          return res.json();
+        })
+        .then((data: { movies: any[] }) => {
+          console.log(data.movies,'data')
+          setMovies(data.movies);
+        })
+        .catch(err => {
+          console.error('Failed to fetch movies:', err);
+        });
   }, []);
 
   useEffect(() => {
@@ -48,7 +61,7 @@ const Home = () => {
 
       <div className="grid">
         {filtered.map((movie) => (
-          <MovieCard key={movie} movie={movie} />
+          <MovieCard movie={movie} />
         ))}
       </div>
     </div>

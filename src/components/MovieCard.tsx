@@ -11,7 +11,7 @@ const MovieCard = ({ movie }: { movie: any }) => (
       </p>
       <p>{movie.description}</p>
       <p>
-        <em>Actors: {movie.actors.join(', ')}</em>
+        {/* <em>Actors: {movie.actors.join(', ')}</em> */}
       </p>
     </div>
   );

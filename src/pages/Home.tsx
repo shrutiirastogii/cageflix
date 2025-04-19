@@ -3,34 +3,14 @@ import { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
 import { simpleSearch } from "../utils/simpleSearch";
+import {fuzzySearch} from '../utils/fuzzySearch';
 import "../index.css";
 import Logo from "../assets/logo.png";
 
 const Home = () => {
   const [movies, setMovies] = useState<any[]>([]);
   const [query, setQuery] = useState("");
-  const [filtered, setFiltered] = useState([]);
-
-  // const list = [
-  //   {
-  //     "id": "1",
-  //     "title": "Face/Off",
-  //     "year": 1997,
-  //     "genres": ["Action", "Sci-Fi"],
-  //     "description": "An FBI agent undergoes surgery to assume the identity of a terrorist.",
-  //     "actors": ["Nicolas Cage", "John Travolta"],
-  //     "poster": "https://via.placeholder.com/300x450?text=Face%2FOff"
-  //   },
-  //   {
-  //     "id": "2",
-  //     "title": "National Treasure",
-  //     "year": 2004,
-  //     "genres": ["Action", "Adventure"],
-  //     "description": "A historian races to find treasure hidden by the Founding Fathers.",
-  //     "actors": ["Nicolas Cage", "Diane Kruger"],
-  //     "poster": "https://via.placeholder.com/300x450?text=National+Treasure"
-  //   },
-  // ]
+  const [filtered, setFiltered] = useState<any[]>([]);
 
   useEffect(() => {
     fetch("/api/movies")
@@ -49,8 +29,20 @@ const Home = () => {
       });
   }, []);
 
-  useEffect(() => {
-    setFiltered(simpleSearch(query, movies));
+  // useEffect(() => {
+  //   setFiltered(simpleSearch(query, movies));
+  // }, [query, movies]);
+
+  useEffect(()=>{
+    const results = fuzzySearch(
+      movies,
+      query,
+      {
+        keys: ['title', 'genres'], 
+        threshold: 0.3
+      }
+    );
+    setFiltered(results);
   }, [query, movies]);
 
   return (

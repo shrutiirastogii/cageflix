@@ -2,7 +2,7 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-color: #141414;
 }
 
 .container {
@@ -38,5 +38,6 @@ body {
   margin-left: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  max-height: 10px;
   align-self: flex-end;
 }

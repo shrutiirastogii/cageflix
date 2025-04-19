@@ -1,13 +1,14 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import SearchBar from '../components/SearchBar';
-import MovieCard from '../components/MovieCard';
-import { simpleSearch } from '../utils/simpleSearch';
-import '../index.css';
+import React from "react";
+import { useState, useEffect } from "react";
+import SearchBar from "../components/SearchBar";
+import MovieCard from "../components/MovieCard";
+import { simpleSearch } from "../utils/simpleSearch";
+import "../index.css";
+import Logo from "../assets/logo.png";
 
 const Home = () => {
   const [movies, setMovies] = useState<any[]>([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState([]);
 
   // const list = [
@@ -32,20 +33,20 @@ const Home = () => {
   // ]
 
   useEffect(() => {
-      fetch('/api/movies')
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status} – ${res.statusText}`);
-          }
-          return res.json();
-        })
-        .then((data: { movies: any[] }) => {
-          console.log(data.movies,'data')
-          setMovies(data.movies);
-        })
-        .catch(err => {
-          console.error('Failed to fetch movies:', err);
-        });
+    fetch("/api/movies")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} – ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then((data: { movies: any[] }) => {
+        console.log(data.movies, "data");
+        setMovies(data.movies);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch movies:", err);
+      });
   }, []);
 
   useEffect(() => {
@@ -55,7 +56,11 @@ const Home = () => {
   return (
     <div className="container">
       <div style={styles.container}>
-        <h1 style={{ textAlign: 'center' }}> Cageflix</h1>
+        <img
+          src={Logo}
+          alt="Cage Flix"
+          style={{ width: "100px", marginRight: "10px", height: "100%" }}
+        />
         <SearchBar query={query} onChange={setQuery} />
       </div>
 
@@ -74,8 +79,8 @@ const styles = {
     // margin: '0 auto',
     // padding: '24px',
     // fontFamily: 'Arial, sans-serif',
-    display: 'flex',
-    FlexDirection: 'row',
+    display: "flex",
+    FlexDirection: "row",
     // JustifyContent: 'space-between',
   },
 };

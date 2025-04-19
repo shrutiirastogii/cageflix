@@ -4,10 +4,9 @@ import SearchBar from '../components/SearchBar';
 import MovieCard from '../components/MovieCard';
 import { simpleSearch } from '../utils/simpleSearch';
 import '../index.css';
-import { lstat } from 'fs';
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<any[]>([]);
   const [query, setQuery] = useState('');
   const [filtered, setFiltered] = useState([]);
 

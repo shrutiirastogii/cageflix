@@ -2,11 +2,9 @@ import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
-// import { simpleSearch } from "../utils/simpleSearch";
 import { fuzzySearch } from "../utils/fuzzySearch";
 import "../index.css";
 import Logo from "../assets/logo.png";
-import { height, padding, width } from "@mui/system";
 
 interface Meta {
   total: number;
@@ -21,7 +19,7 @@ const Home = () => {
   const [page, setPage] = useState<number>(1);
   const [meta, setMeta] = useState<Meta>({ total: 0, page: 1, perPage: 20 });
   const [loading, setLoading] = useState<boolean>(false);
-  const [initials, setInitials] = useState<string>('');  
+  const [initials, setInitials] = useState<string>("");
 
   const fetchMovies = useCallback((pageToFetch: number) => {
     setLoading(true);
@@ -40,21 +38,21 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch('/api/user')
-      .then(r => r.json())
-      .then(data => {
-        setInitials(data.user.initials || '?');
+    fetch("/api/user")
+      .then((r) => r.json())
+      .then((data) => {
+        setInitials(data.user.initials || "?");
       })
-      .catch(() => setInitials('?'));
+      .catch(() => setInitials("?"));
   }, []);
 
   useEffect(() => {
-    fetch('/api/user')
-      .then(r => r.json())
-      .then(data => {
-        setInitials(data.user.initials || '?');
+    fetch("/api/user")
+      .then((r) => r.json())
+      .then((data) => {
+        setInitials(data.user.initials || "?");
       })
-      .catch(() => setInitials('?'));
+      .catch(() => setInitials("?"));
   }, []);
 
   useEffect(() => {
@@ -132,17 +130,17 @@ const styles = {
   avatar: {
     width: 40,
     height: 40,
-    borderRadius: '5px',
-    backgroundColor: '#E50914',
-    color: '#fff',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    transform: "translateY(-40)"
-  }
+    borderRadius: "5px",
+    backgroundColor: "#E50914",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    fontSize: "1rem",
+    cursor: "pointer",
+    transform: "translateY(-40)",
+  },
 };
 
 export default Home;

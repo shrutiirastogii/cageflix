@@ -20,7 +20,7 @@ const styles = {
     maxHeight: "10px",
     borderColor: "#fff",
     backgroundColor: "#141414",
-    caretColor: "#fff",
+    color: "#fff",
     cursor: "text",
   },
 };

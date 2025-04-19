@@ -20,7 +20,7 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
       }}
     >
       <img src={Poster} alt={movie.title} style={styles.poster} />
-      {hover && (
+      {/* {hover && ( */}
         <div style={styles.content}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <h2 style={styles.title}>
@@ -36,7 +36,7 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
             <p style={styles.actors}>Actors: {movie.actors.join(", ")}</p>
           )}
         </div>
-      )}
+      {/* // )} */}
     </div>
   );
 };

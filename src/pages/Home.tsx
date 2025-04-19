@@ -1,10 +1,14 @@
 import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
-import SearchBar from "../components/SearchBar";
+// import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
 import { fuzzySearch } from "../utils/fuzzySearch";
 import "../index.css";
-import Logo from "../assets/logo.png";
+// import Logo from "../assets/logo.png";
+
+interface HomeProps {
+  searchQuery: string
+}
 
 interface Meta {
   total: number;
@@ -12,14 +16,12 @@ interface Meta {
   perPage: number;
 }
 
-const Home = () => {
+const Home: React.FC<HomeProps> = ({ searchQuery }) => {
   const [movies, setMovies] = useState<any[]>([]);
-  const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
   const [meta, setMeta] = useState<Meta>({ total: 0, page: 1, perPage: 20 });
   const [loading, setLoading] = useState<boolean>(false);
-  const [initials, setInitials] = useState<string>("");
 
   const fetchMovies = useCallback((pageToFetch: number) => {
     setLoading(true);
@@ -35,24 +37,6 @@ const Home = () => {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/user")
-      .then((r) => r.json())
-      .then((data) => {
-        setInitials(data.user.initials || "?");
-      })
-      .catch(() => setInitials("?"));
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/user")
-      .then((r) => r.json())
-      .then((data) => {
-        setInitials(data.user.initials || "?");
-      })
-      .catch(() => setInitials("?"));
   }, []);
 
   useEffect(() => {
@@ -74,21 +58,15 @@ const Home = () => {
   }, [loading, page, meta.total, meta.perPage]);
 
   useEffect(() => {
-    const results = fuzzySearch(movies, query, {
+    const results = searchQuery? fuzzySearch(movies, searchQuery, {
       keys: ["title", "genres"],
       threshold: 0.3,
-    });
+    }): movies;
     setFiltered(results);
-  }, [query, movies]);
+  }, [searchQuery, movies]);
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}>
-        <img src={Logo} alt="Cage Flix" style={styles.logo} />
-        <SearchBar query={query} onChange={setQuery} />
-        <div style={styles.avatar}>{initials}</div>
-      </div>
-
       <div className="grid">
         {filtered.map((movie) => (
           <MovieCard movie={movie} />
@@ -102,44 +80,19 @@ const Home = () => {
 const styles = {
   container: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    flexDirection: "column" as React.CSSProperties['flexDirection'],
+    alignItems: "center" as React.CSSProperties['alignItems'],
     width: "100%",
     maxWidth: "1300px",
     margin: "0 auto",
-    // padding: "10px",
+    padding: "10px",
+    marginTop:'80px'
   },
   loading: {
-    textAlign: "center",
+    textAlign: "center" as React.CSSProperties['textAlign'],
     padding: "16px",
-    fontSize: "1rem",
+    fontSize: "1rem", 
     color: "#888",
-  },
-  logo: {
-    width: "200px",
-    // marginRight: "10px",
-    height: "auto",
-  },
-  header: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    // marginBottom: "16px",
-    width: "100%",
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: "5px",
-    backgroundColor: "#E50914",
-    color: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: "bold",
-    fontSize: "1rem",
-    cursor: "pointer",
-    transform: "translateY(-40)",
   },
 };
 

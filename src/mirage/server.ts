@@ -19,7 +19,7 @@ export function makeServer({ environment = "development" } = {}) {
         letters.charAt(Math.floor(Math.random() * letters.length)) +
         letters.charAt(Math.floor(Math.random() * letters.length));
 
-      server.create("user", { initials: randomInitials });
+        server.create("user", { initials: randomInitials } as any);
     },
 
     routes() {

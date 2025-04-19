@@ -9,6 +9,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ query, onSearchChange }) => {
   const [initials, setInitials] = useState<string>("");
+  const [tab, setTab] = useState("home");
 
   useEffect(() => {
     fetch("/api/user")
@@ -19,11 +20,51 @@ const Header: React.FC<HeaderProps> = ({ query, onSearchChange }) => {
 
   return (
     <header style={styles.header}>
-      <img src={Logo} alt="Cageflix Logo" style={styles.logo} />
-      <div style={styles.searchWrapper}>
-        <SearchBar query={query} onChange={onSearchChange} />
+      <div style={styles.customWrapper}>
+        <img src={Logo} alt="Cageflix Logo" style={styles.logo} />
+        <p
+          style={{
+            ...styles.text,
+            fontWeight: tab === "home" ? "bold" : "normal",
+          }}
+          onClick={() =>{ alert("home"); setTab("home")}}
+        >
+          Home
+        </p>
+        <p
+          style={{
+            ...styles.text,
+            fontWeight: tab === "movies" ? "bold" : "normal",
+          }}
+          onClick={() => setTab("movies")}
+        >
+          Movies
+        </p>
+        <p
+          style={{
+            ...styles.text,
+            fontWeight: tab === "new" ? "bold" : "normal",
+          }}
+          onClick={() => setTab("new")}
+        >
+          New & Popular
+        </p>
+        <p
+          style={{
+            ...styles.text,
+            fontWeight: tab === "mylist" ? "bold" : "normal",
+          }}
+          onClick={() => setTab("mylist")}
+        >
+          My List
+        </p>
       </div>
-      <div style={styles.avatar}>{initials}</div>
+      <div style={styles.customWrapper}>
+        <div style={styles.searchWrapper}>
+          <SearchBar query={query} onChange={onSearchChange} />
+        </div>
+        <div style={styles.avatar}>{initials}</div>
+      </div>
     </header>
   );
 };
@@ -45,7 +86,8 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   logo: {
     width: "150px",
-    height: "auto",
+    height: "50px",
+    marginRight: "25px",
   },
   searchWrapper: {
     flex: 1,
@@ -63,6 +105,17 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: "bold",
     fontSize: "1rem",
     cursor: "pointer",
+  },
+  text: {
+    fontSize: "14px",
+    color: "#fff",
+    marginLeft: "35px",
+    cursor: "pointer",
+  },
+  customWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
 };
 

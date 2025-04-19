@@ -36,7 +36,6 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
             <p style={styles.actors}>Actors: {movie.actors.join(", ")}</p>
           )}
         </div>
-      {/* // )} */}
     </div>
   );
 };
@@ -52,17 +51,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     overflow: "hidden",
     transition: "transform 0.2s ease-in-out",
     cursor: "pointer",
-  },
-  cardHover: {
-    transform: "translateY(-4px)",
-  },
-  image: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
   },
   content: {
     padding: "16px",

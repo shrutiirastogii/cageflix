@@ -68,20 +68,19 @@ const Home: React.FC<HomeProps> = ({ searchQuery }) => {
 
   return (
     <Container fluid className="mt-5 pt-4 px-3 bg-dark min-vh-100">
-    <Row xs={1} sm={2} md={2} lg={3} xl={4} className="g-3">
-      {filtered.map((movie) => (
-        <Col key={movie.id ?? movie.tconst}>
-          <MovieCard movie={movie} />
-        </Col>
-      ))}
-    </Row>
-
-    {loading && (
-      <div className="d-flex justify-content-center py-4">
-        <Spinner animation="border" variant="light" />
-      </div>
-    )}
-  </Container>
+      <Row xs={1} sm={2} md={2} lg={3} xl={4} className="g-3">
+        {filtered.map((movie) => (
+          <Col key={movie.id ?? movie.tconst}>
+            <MovieCard movie={movie} />
+          </Col>
+        ))}
+      </Row>
+      {loading && (
+        <div style={styles.loaderContainer} className="py-4">
+          <Spinner animation="border" variant="light" />
+        </div>
+      )}
+    </Container>
   );
 };
 
@@ -102,11 +101,9 @@ const styles = {
     gap: "16px",
     width: "100%",
   },
-  loading: {
-    textAlign: "center" as React.CSSProperties["textAlign"],
-    padding: "16px",
-    fontSize: "1rem",
-    color: "#888",
+  loaderContainer: {
+    display: "flex",
+    justifyContent: "center",
   },
 };
 

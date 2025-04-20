@@ -13,8 +13,9 @@ const SearchBar = ({ query, onChange }: { query: any; onChange: any }) => {
 
 const styles = {
   searchInput: {
-    padding: "10px",
-    width: "auto",
+    padding: "15px",
+    width: "100%",
+    height:'auto',
     fontSize: "14px",
     border: "1px solid #ccc",
     maxHeight: "10px",

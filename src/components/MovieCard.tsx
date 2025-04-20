@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Poster1 from "../assets/poster1.png";
 import Poster2 from "../assets/poster2.png";
 import Poster3 from "../assets/poster3.png";
@@ -8,6 +8,13 @@ const posters = [Poster1, Poster2, Poster3, Poster4];
 const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = showModal ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showModal]);
 
   const randomPoster = useMemo(
     () => posters[Math.floor(Math.random() * posters.length)],
@@ -47,16 +54,30 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
         </div>
       </div>
       {showModal && (
-        <div style={styles.modalOverlay}>
-          <div style={styles.modalContainer}>
+        <div style={styles.modalOverlay} onClick={() => setShowModal(false)}>
+          <div
+            style={{
+              ...styles.modalContainer,
+              backgroundImage: `url(${randomPoster})`,
+            }}
+          >
             <button
-              style={styles.closeButtonn}
+              style={styles.closeButton}
               onClick={() => setShowModal(false)}
             >
               &times;
             </button>
-            <div style ={styles.modalInfo}>
-              <p style={{ color: "white" }}>hellp World</p>
+            <div style={styles.modalInfo}>
+              <h2 style={styles.title}>
+                {movie.title} <span style={styles.meta}>({movie.year})</span>
+              </h2>
+              <div style={styles.meta}>{movie.genres.join(", ")}</div>
+              {movie.description && (
+                <p style={styles.description}>{movie.description}</p>
+              )}
+              {movie.actors && (
+                <p style={styles.meta}>Actors: {movie.actors.join(", ")}</p>
+              )}
             </div>
           </div>
         </div>
@@ -67,24 +88,24 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   card: {
-    width: '100%',            
-    aspectRatio: '280 / 200', 
-    position: 'relative',
-    overflow: 'hidden',
-    borderRadius: '5px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-    cursor: 'pointer',
+    width: "100%",
+    aspectRatio: "280 / 200",
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: "5px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+    cursor: "pointer",
   },
   poster: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover', 
-    backgroundColor: '#000', 
-    display: 'block',
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    backgroundColor: "#000",
+    display: "block",
   },
   content: {
     padding: "16px",
@@ -117,6 +138,11 @@ const styles: { [key: string]: React.CSSProperties } = {
   genres: {
     fontSize: "0.9rem",
     margin: 0,
+    maxLines: 1,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    overflowWrap: "break-word",
+    whiteSpace: "nowrap",
   },
   description: {
     fontSize: "0.85rem",
@@ -151,7 +177,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     overflow: "hidden",
     aspectRatio: "16/9",
   },
-  closeButtonn: {
+  closeButton: {
     position: "absolute",
     top: "16px",
     right: "16px",
@@ -163,6 +189,10 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "32px",
     borderRadius: "50%",
     cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 0,
   },
   modalInfo: {
     position: "absolute",

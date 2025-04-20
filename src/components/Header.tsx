@@ -122,7 +122,8 @@ const styles: { [key: string]: React.CSSProperties } = {
   searchWrapper: {
     maxWidth: '300px',
     flex: '0 0 auto', 
-    width: 'auto', 
+    width: '100%', 
+    padding:'10px',
   },
   avatar: {
     // width: "auto",

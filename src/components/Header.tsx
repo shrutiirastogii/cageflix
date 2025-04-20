@@ -125,8 +125,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: 'auto', 
   },
   avatar: {
-    width: "auto",
-    height: "auto",
+    // width: "auto",
+    // height: "auto",
     borderRadius: "5px",
     backgroundColor: "#E50914",
     color: "#fff",
@@ -136,7 +136,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: "bold",
     fontSize: "auto",
     cursor: "pointer",
-    padding:'5px'
+    padding:'5px',
+    maxHeight:'40px',
+    maxWidth:'40px'
   },
   text: {
     fontSize: "14px",

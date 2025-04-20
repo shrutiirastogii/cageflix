@@ -1,13 +1,11 @@
 import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
-// import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
 import { fuzzySearch } from "../utils/fuzzySearch";
 import "../index.css";
-// import Logo from "../assets/logo.png";
 
 interface HomeProps {
-  searchQuery: string
+  searchQuery: string;
 }
 
 interface Meta {
@@ -58,16 +56,18 @@ const Home: React.FC<HomeProps> = ({ searchQuery }) => {
   }, [loading, page, meta.total, meta.perPage]);
 
   useEffect(() => {
-    const results = searchQuery? fuzzySearch(movies, searchQuery, {
-      keys: ["title", "genres"],
-      threshold: 0.3,
-    }): movies;
+    const results = searchQuery
+      ? fuzzySearch(movies, searchQuery, {
+          keys: ["title", "genres"],
+          threshold: 0.3,
+        })
+      : movies;
     setFiltered(results);
   }, [searchQuery, movies]);
 
   return (
     <div style={styles.container}>
-      <div className="grid">
+      <div style={styles.grid}>
         {filtered.map((movie) => (
           <MovieCard movie={movie} />
         ))}
@@ -80,18 +80,24 @@ const Home: React.FC<HomeProps> = ({ searchQuery }) => {
 const styles = {
   container: {
     display: "flex",
-    flexDirection: "column" as React.CSSProperties['flexDirection'],
-    alignItems: "center" as React.CSSProperties['alignItems'],
+    flexDirection: "column" as React.CSSProperties["flexDirection"],
+    alignItems: "center" as React.CSSProperties["alignItems"],
     width: "100%",
     maxWidth: "1300px",
     margin: "0 auto",
     padding: "10px",
-    marginTop:'80px'
+    marginTop: "80px",
+  },
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+    gap: "16px",
+    width: "100%",
   },
   loading: {
-    textAlign: "center" as React.CSSProperties['textAlign'],
+    textAlign: "center" as React.CSSProperties["textAlign"],
     padding: "16px",
-    fontSize: "1rem", 
+    fontSize: "1rem",
     color: "#888",
   },
 };

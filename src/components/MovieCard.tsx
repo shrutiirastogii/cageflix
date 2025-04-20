@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Poster1 from "../assets/poster1.png";
 import Poster2 from "../assets/poster2.png";
 import Poster3 from "../assets/poster3.png";
@@ -67,15 +67,24 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   card: {
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: "#141414",
-    color: "#ffffff",
-    borderRadius: "5px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
-    overflow: "hidden",
-    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-    cursor: "pointer",
+    width: '100%',            
+    aspectRatio: '280 / 200', 
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: '5px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    cursor: 'pointer',
+  },
+  poster: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover', 
+    backgroundColor: '#000', 
+    display: 'block',
   },
   content: {
     padding: "16px",

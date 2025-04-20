@@ -6,15 +6,13 @@ import Poster4 from "../assets/poster4.png";
 
 const posters = [Poster1, Poster2, Poster3, Poster4];
 const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
-
   const [hover, setHover] = useState(false);
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const randomPoster = useMemo(
     () => posters[Math.floor(Math.random() * posters.length)],
     []
   );
-
 
   return (
     <>
@@ -29,14 +27,14 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
         onMouseLeave={(e) => {
           setHover(false);
         }}
-        onClick={()=>setShowModal(true)}
+        onClick={() => setShowModal(true)}
       >
         <img src={randomPoster} alt={movie.title} style={styles.poster} />
-        <div style={{...styles.content, opacity: 1 ,}}>
+        <div style={{ ...styles.content, opacity: 1 }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <h2 style={styles.title}>
               {movie.title}
-              <span style={styles.year}>({movie.year})</span>
+              {/* <span style={styles.year}>({movie.year})</span> */}
             </h2>
           </div>
           <p style={styles.genres}>
@@ -50,7 +48,17 @@ const MovieCard: React.FC<{ movie: any }> = ({ movie }) => {
       </div>
       {showModal && (
         <div style={styles.modalOverlay}>
-          <p>hellp World</p>
+          <div style={styles.modalContainer}>
+            <button
+              style={styles.closeButtonn}
+              onClick={() => setShowModal(false)}
+            >
+              &times;
+            </button>
+            <div style ={styles.modalInfo}>
+              <p style={{ color: "white" }}>hellp World</p>
+            </div>
+          </div>
         </div>
       )}
     </>
@@ -74,23 +82,23 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    color: '#fff',
-    transition: 'opacity 0.3s ease',
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    color: "#fff",
+    transition: "opacity 0.3s ease",
   },
   title: {
     fontSize: "1.25rem",
     margin: 0,
     fontWeight: "bold",
     maxLines: 1,
-    overflow:'hidden',
-    textOverflow: 'ellipsis',
-    overflowWrap: 'break-word',
-    whiteSpace: 'nowrap',
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    overflowWrap: "break-word",
+    whiteSpace: "nowrap",
   },
   year: {
     fontWeight: "normal",
@@ -113,12 +121,50 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "#aaaaaa",
   },
   modalOverlay: {
-    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-    display: 'flex', justifyContent: 'center', alignItems: 'center',
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.8)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 1000,
   },
+  modalContainer: {
+    position: "relative",
+    width: "80vw",
+    maxWidth: "800px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    borderRadius: "8px",
+    overflow: "hidden",
+    aspectRatio: "16/9",
+  },
+  closeButtonn: {
+    position: "absolute",
+    top: "16px",
+    right: "16px",
+    background: "rgba(0,0,0,0.6)",
+    border: "none",
+    color: "#fff",
+    fontSize: "1.5rem",
+    width: "32px",
+    height: "32px",
+    borderRadius: "50%",
+    cursor: "pointer",
+  },
+  modalInfo: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    background: "linear-gradient(to top,rgba(0,0,0,0.8),transparent)",
+    color: "#fff",
+    padding: "24px",
+    boxSizing: "border-box",
+  },
 };
-
 
 export default MovieCard;

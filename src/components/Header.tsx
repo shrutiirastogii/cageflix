@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ query, onSearchChange }) => {
             ...styles.text,
             fontWeight: tab === "home" ? "bold" : "normal",
           }}
-          onClick={() =>{ alert("home"); setTab("home")}}
+          onClick={() =>{ setTab("home")}}
         >
           Home
         </p>

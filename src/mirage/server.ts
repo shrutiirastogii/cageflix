@@ -1,7 +1,7 @@
 import { Server, Model, } from "miragejs";
 import moviesList from "./data/cage-movies.json";
 
-export function makeServer({ environment = "development" } = {}) {
+export function makeServer({ environment = "production" } = {}) {
   return new Server({
     environment,
 

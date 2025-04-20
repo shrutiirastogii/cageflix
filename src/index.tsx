@@ -4,8 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { makeServer } from './mirage/server';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' ) {
   makeServer(); // seeds movies.json automatically
 }
 
